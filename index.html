@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Switch button</title>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+
+</head>
+<body>
+	<div class="form-box">
+		<div class="button-box">
+			<div id="btn"></div>
+			<button type="button" class="toggle-btn" onclick="leftClick()"><i data-feather="moon"></i></button>
+			<button type="button" class="toggle-btn" onclick="rightClick()"><i data-feather="sun"></i></button>
+		</div>
+
+        <div class="greeting">
+            <h1 id="header-text">
+                Hello, World!
+            </h1>
+        </div>
+    <style>
+        body {
+            background: #828489;
+            font-family: 'Lato';
+        }
+
+        .button-box {
+            width: 160px;
+            margin: 35px auto;
+            position: relative;
+            border-radius: 30px;
+            background: #fff;
+            text-align: center;
+            align-items: center;
+        }
+
+        .toggle-btn {
+            padding: 7px 25.5px;
+            cursor: pointer;
+            background: transparent;
+            /* background: blue; */
+            border: 0;
+            outline: none;
+            position: relative;
+            text-align: center;
+        }
+
+        #btn {
+            left: 0;
+            top: 0;
+            position: absolute;
+            width: 80px;
+            height: 100%;
+            background: #F97068;
+            border-radius: 30px;
+            transition: .5s;
+        }
+
+        .greeting{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+    </style>
+
+	<script>
+        var btn = document.getElementById('btn');
+        var textBox = document.getElementById('header-text');
+
+        function leftClick() {
+            btn.style.left = '0'
+            document.body.style.backgroundColor = '#212738';
+            textBox.textContent = "Good Night!";
+            textBox.style.color = 'white';
+        }
+
+        function rightClick() {
+            btn.style.left = '80px';
+            document.body.style.backgroundColor = '#EDF2EF';
+            textBox.textContent = "Good Day!";
+            textBox.style.color = 'black';
+        }
+
+        feather.replace();
+
+    </script>
+</body>
+</html>
