@@ -4,6 +4,8 @@
 	<title>Switch button</title>
     <script src="https://unpkg.com/feather-icons"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 </head>
 <body>
@@ -64,6 +66,48 @@
             transform: translate(-50%, -50%);
         }
 
+        @media screen and (max-width: 768px) {
+            .button-box {
+            width: 80%;
+            margin: 35px auto;
+            position: relative;
+            border-radius: 30px;
+            background: #fff;
+            text-align: center;
+            align-items: center;
+        }
+
+        .toggle-btn {
+            padding: 5% 50px;
+            cursor: pointer;
+            background: transparent;
+            /* background: blue; */
+            border: 0;
+            outline: none;
+            position: relative;
+            text-align: center;
+        }
+
+        #btn {
+            left: 0;
+            top: 0;
+            position: absolute;
+            width: 60%;
+            height: 100%;
+            background: #F97068;
+            border-radius: 30px;
+            transition: .5s;
+        }
+
+        .greeting{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+
 
     </style>
 
@@ -78,14 +122,43 @@
             textBox.style.color = 'white';
         }
 
+        // function rightClick() {
+        //     btn.style.left = '80px';
+        //     // btn.style.left = '40%';
+        //     document.body.style.backgroundColor = '#EDF2EF';
+        //     textBox.textContent = "Good Day!";
+        //     textBox.style.color = 'black';
+        //     console.log('Right Click on Larger Screen');
+        // }
+
         function rightClick() {
-            btn.style.left = '80px';
-            document.body.style.backgroundColor = '#EDF2EF';
-            textBox.textContent = "Good Day!";
-            textBox.style.color = 'black';
+            if (window.innerWidth < 768) {
+                // Behavior for smaller screens (e.g., phones)
+                btn.style.left = '40%';
+                document.body.style.backgroundColor = '#EDF2EF';
+                textBox.textContent = "Good Day!";
+                textBox.style.color = 'black';                
+                console.log('Right Click on Smaller Screen');
+            } else {
+                // Default behavior for larger screens
+                btn.style.left = '80px';
+                // btn.style.left = '40%';
+                document.body.style.backgroundColor = '#EDF2EF';
+                textBox.textContent = "Good Day!";
+                textBox.style.color = 'black';
+                console.log('Right Click on Larger Screen');
+            }
         }
 
         feather.replace();
+
+        // if (window.innerWidth <= 768) {
+        //     // Code for small screens
+
+        // } else {
+        //     // Code for larger screens
+        // }
+
 
     </script>
 </body>
