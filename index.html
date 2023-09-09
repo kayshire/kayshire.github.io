@@ -105,6 +105,12 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        .greeting h1{
+            font-size: 7vw;
+            white-space: nowrap; 
+            overflow: hidden;
+        }
     }
 
 
@@ -121,15 +127,6 @@
             textBox.textContent = "Good Night!";
             textBox.style.color = 'white';
         }
-
-        // function rightClick() {
-        //     btn.style.left = '80px';
-        //     // btn.style.left = '40%';
-        //     document.body.style.backgroundColor = '#EDF2EF';
-        //     textBox.textContent = "Good Day!";
-        //     textBox.style.color = 'black';
-        //     console.log('Right Click on Larger Screen');
-        // }
 
         function rightClick() {
             if (window.innerWidth < 768) {
@@ -151,13 +148,6 @@
         }
 
         feather.replace();
-
-        // if (window.innerWidth <= 768) {
-        //     // Code for small screens
-
-        // } else {
-        //     // Code for larger screens
-        // }
 
 
     </script>
