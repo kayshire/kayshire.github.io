@@ -5,6 +5,8 @@
     <script src="https://unpkg.com/feather-icons"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 
 
 </head>
@@ -21,7 +23,18 @@
                 Hello, World!
             </h1>
         </div>
+
+    
+    <!-----Footer----->
+    <section class="footer">
+        <p id="footer-text">Created with <i class="fa-regular fa-heart"></i> by SKY.</p>
+    </section>
+
     <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
         body {
             background: #828489;
             font-family: 'Lato';
@@ -128,6 +141,22 @@
         }
     }
 
+    /* ---footer--- */
+.footer{
+    width: 100%;
+    text-align: center;
+    padding: 30px 0;
+    padding-top: 0;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.fa-heart{
+    color: #EE3424;
+}
+
 
 
     </style>
@@ -135,12 +164,14 @@
 	<script>
         var btn = document.getElementById('btn');
         var textBox = document.getElementById('header-text');
+        var footerText = document.getElementById('footer-text');
 
         function leftClick() {
             btn.style.left = '0'
             document.body.style.backgroundColor = '#212738';
             textBox.textContent = "Good Night!";
             textBox.style.color = 'white';
+            footerText.style.color = 'white';
         }
 
         function rightClick() {
@@ -149,7 +180,8 @@
                 btn.style.left = '50%';
                 document.body.style.backgroundColor = '#EDF2EF';
                 textBox.textContent = "Good Day!";
-                textBox.style.color = 'black';                
+                textBox.style.color = 'black';
+                footerText.style.color = 'black';                
                 console.log('Right Click on Smaller Screen');
             } else {
                 // Default behavior for larger screens
@@ -158,6 +190,7 @@
                 document.body.style.backgroundColor = '#EDF2EF';
                 textBox.textContent = "Good Day!";
                 textBox.style.color = 'black';
+                footerText.style.color = 'black';   
                 console.log('Right Click on Larger Screen');
             }
         }
