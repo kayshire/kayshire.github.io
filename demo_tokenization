@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokenization Demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+    <h1>Generate Your Card Token</h1>
+
+    <div id="scriptGenerator">
+        <select id="encryption-method">
+            <option value="fpe">Format-Perserving Encryption</option>
+            <option value="randomtoken">Complete Random Tokenization</option>
+        </select>
+
+        <!-- <label id="srcInputLabel" for="srcInput">Input Your Card Number Here:</label> -->
+        <input type="text" id="srcInput" placeholder="Input Your Card Number Here">
+        <button id="submit-btn" type="submit">Generate Token</button>
+        <!-- <div class="output"></div> -->
+
+        <div id="copy-area">
+            <textarea id="output"></textarea>
+            <button id="copy-btn" onclick="copy()">
+                <i class="fa-solid fa-copy"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('scriptGenerator');
+        const outputDiv = document.getElementById("output");
+        const srcInput = document.getElementById('srcInput');
+        const submitButton = document.getElementById('submit-btn');
+        const srcInputLabel = document.getElementById('srcInputLabel');
+        const  encryptionMethod= document.getElementById('encryption-method');
+
+
+    submitButton.addEventListener('click', () => {
+        // e.preventDefault();
+
+        // Get user input
+        const userInput = document.getElementById('srcInput').value;
+
+
+        // Remove spaces from userInput and check if it's a 16-digit number string
+        var cleanedInput = userInput.replace(/\s/g, ''); // Remove spaces
+
+
+        // Check if userInput is a 16-digit number string
+        if (/^\d{16}$/.test(cleanedInput)) {
+
+            var selectedValue = encryptionMethod.value;
+            let randomCardNumber;
+            
+            if (selectedValue === "fpe") {
+                // Do something for Format-Preserving Encryption
+                randomCardNumber = generateFPE(cleanedInput);
+                console.log(generateFPE(randomCardNumber,false));
+                
+            } else if (selectedValue === "randomtoken") {
+                // Do something for Complete Random Tokenization
+                randomCardNumber = generateRandomtoken();
+            } 
+
+            // Convert the random number to a string and add spaces every 4 digits
+            var formattedNumber = randomCardNumber.toString().replace(/(\d{4})(?=\d)/g, '$1 ')
+
+            // Set the outputDiv.innerHTML to the random number
+            outputDiv.innerHTML = formattedNumber;
+
+        } else {
+            // Set the outputDiv.innerHTML to an error message
+            outputDiv.innerHTML = "Invalid card number";
+        }
+    });
+
+    function generateRandomtoken() {
+
+        // Generate a random 16-digit number
+        var randomCardNumber = Math.floor(Math.random() * 9000000000000000) + 1000000000000000;
+
+        return randomCardNumber;
+    }
+
+    function generateFPE(input, encrypt = true) {
+        const key = "0123456789012345"; // Replace with your encryption key
+        const digits = "0123456789";
+
+        let result = "";
+        for (let i = 0; i < 16; i++) {
+            const inputDigit = input[i];
+            const keyDigit = key[i];
+            const index = (encrypt ? digits.indexOf(inputDigit) + digits.indexOf(keyDigit) : digits.indexOf(inputDigit) - digits.indexOf(keyDigit) + 10) % 10;
+            result += digits[index];
+        }
+
+        return result;
+    }
+
+
+
+    // copy function
+    function copy(){
+            let copyArea = document.getElementById("copy-area");
+            let text = document.getElementById("output");
+            text.select();
+            document.execCommand("copy");
+            // copyArea.classList.add("before");
+            window.getSelection().removeAllRanges();
+            // setTimeout(() => {
+            //     document.getElementById("copy-btn").style.display="block";
+            //     copyArea.classList.remove("active");
+            // }, 2500);
+        }
+
+    
+    // Change Encryption Method
+    encryptionMethod.addEventListener("change", function () {
+        // Clear the srcInput value
+        srcInput.value = "";
+        
+        // Clear the outputDiv content
+        outputDiv.innerHTML = "";
+    });
+
+
+    </script>
+
+
+<style>
+
+    /* #scriptGenerator{
+        display: flex;
+        flex-direction: column;
+    }
+    .output{
+        padding: 20px 10px;
+    }
+
+    #srcInput{
+        height: 20vh;
+        width: 40vh;
+    }
+
+    #submit-btn{
+        width: 17vh;
+        height: 5vh;
+        text-align: center;
+        padding-top: 10px;
+    } */
+
+    *{
+        font-family:  Arial, sans-serif;    
+    }
+
+    #scriptGenerator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* Adjust this for your desired spacing between elements */
+        padding-top: 20px;
+        }
+
+        /* Style the label for the input */
+        label {
+        font-weight: bold;
+        }
+
+        /* Style the input box */
+        #srcInput {
+        width: 50%; /* Make the input box take the full width of its container */
+        min-height: 50px; /* Set a minimum height */
+        /* resize: vertical; Allow vertical resizing */
+        overflow: auto; /* Allow text to overflow to the next line */
+        padding: 5px; /* Add some padding for readability */
+        }
+
+        /* Style the submit button */
+        #submit-btn {
+        background-color: #1976D2; /* Example button style, adjust as needed */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        flex-wrap: wrap;
+        }
+
+        /* Style the output div */
+        .output {
+        font-family: Arial, sans-serif; /* Specify a font if needed */
+        margin-top: 10px;
+        width: 50%;
+        }
+
+        #encryption-method {
+            position: absolute;
+            top: 30px; /* Adjust the top value for vertical positioning */
+            right: 30px; /* Adjust the right value for horizontal positioning */
+            }
+
+        /* -----copy area----- */
+        #copy-area{
+            position: relative;
+            width: 50%;
+            border: 1px solid #ccc;
+            padding: 20px;
+            height: 20%;
+        }
+
+        #output{
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            box-sizing: border-box;
+            resize: none;
+            border: none;
+            outline: none;
+        }
+
+        #copy-btn{
+            position: absolute;
+            padding: 5px 10px;
+            right: 0px;
+            top: 0px;
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+        }
+
+        #copy-btn:active{
+            background-color: transparent;
+        }
+
+        #copy-btn::before{
+            font-size: 15px;
+            display: none;
+        }
+
+        #copy-btn.active::before {
+            content: "\f00c";
+            font: var(--fa-font-solid);
+            display: inline-block;
+            color: #EE3424;
+        }
+
+        #copy-area.active button::before{
+            color: #ccc;
+        }
+
+        .fa-check{
+            color:#fff;
+        }
+
+
+</style>
+</body>
+</html>
